@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<!--
+  ════════════════════════════════════════════════════════════
+   ART LIFE FOUNDATION — index.html  v2.1
+   Pure semantic structure. No inline styles or scripts.
+   Theme controlled via [data-theme="dark|light"] on <html>.
+  ════════════════════════════════════════════════════════════
+-->
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="theme-color" content="#080705" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf8f4" media="(prefers-color-scheme: light)" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Art Life Foundation — Fine Art Collection</title>
+  <meta name="description" content="An exclusive curation of contemporary fine art. Singular works for collectors who demand the extraordinary." />
+
+  <!-- ── Google Fonts ──────────────────────────────────────
+       Cormorant Garamond → display / headings
+       DM Sans            → body text
+       Montserrat         → labels / uppercase tags
+  ──────────────────────────────────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════
+       AURA BACKGROUND — animated gradient orbs (CSS only)
+       No canvas, no JS — lightweight, no flickering.
+  ════════════════════════════════════════════════════════ -->
+  <div id="aura-bg" aria-hidden="true">
+    <div class="aura-orb aura-orb--1"></div>
+    <div class="aura-orb aura-orb--2"></div>
+    <div class="aura-orb aura-orb--3"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       CUSTOM CURSOR — dot + magnetic ring (desktop only)
+       Moved via JS with smooth lerp interpolation.
+  ════════════════════════════════════════════════════════ -->
+  <div id="cursor" aria-hidden="true">
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+    <span id="cursor-label"></span>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PRELOADER — cinematic entry screen
+  ════════════════════════════════════════════════════════ -->
+  <div id="preloader" role="status" aria-label="Loading Art Life Foundation">
+    <div id="preloader-line"></div>
+    <div id="preloader-text">
+      <span class="preloader-word">Art Life</span>
+      <span class="preloader-word preloader-word--gold">Foundation</span>
+    </div>
+    <div id="preloader-counter">
+      <span id="preloader-num">0</span><span>%</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       HEADER / MAIN NAVIGATION
+  ════════════════════════════════════════════════════════ -->
+  <header id="site-header" role="banner">
+    <nav id="nav" aria-label="Main navigation">
+
+      <!-- Brand logo -->
+      <a href="#hero" id="nav-logo" class="magnetic" aria-label="Art Life Foundation — Home">
+        <span class="logo-text">ALF <em>Foundation</em></span>
+      </a>
+
+      <!-- Center links (desktop) -->
+      <ul id="nav-links" role="list">
+        <li><a href="#gallery"        class="nav-link magnetic">Gallery</a></li>
+        <li><a href="#featured"       class="nav-link magnetic">Featured</a></li>
+        <li><a href="#beyond-borders" class="nav-link magnetic nav-link--bb">Beyond Borders</a></li>
+        <li><a href="#about"          class="nav-link magnetic">About</a></li>
+        <li><a href="#contact"        class="nav-link magnetic">Contact</a></li>
+      </ul>
+
+      <!-- Right-side actions -->
+      <div id="nav-actions">
+
+        <!-- ── DARK / LIGHT THEME TOGGLE ────────────────
+             JS toggles data-theme on <html> and persists
+             the preference in localStorage ("alf_theme").
+        ─────────────────────────────────────────────── -->
+        <button
+          id="theme-toggle"
+          class="theme-toggle-btn magnetic"
+          aria-label="Switch to light mode"
+          title="Toggle theme"
+        >
+          <!-- Sun icon — shown in dark mode -->
+          <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <!-- Moon icon — shown in light mode -->
+          <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <!-- Admin panel access -->
+        <button id="admin-trigger" class="btn-outline magnetic" aria-label="Access the admin panel">
+          <span>ADM</span>
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M6 1L11 6L6 11M1 6H11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </button>
+
+        <!-- Hamburger (mobile) -->
+        <button id="menu-toggle" class="magnetic" aria-label="Open menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+
+    </nav>
+
+    <!-- Mobile full-screen glassmorphism menu overlay -->
+    <div id="mobile-menu" role="dialog" aria-label="Navigation menu" aria-hidden="true">
+      <div class="mobile-menu-glass" aria-hidden="true"></div>
+
+      <!-- Close button — top-right corner -->
+      <button id="mobile-menu-close" class="mobile-menu-close" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M3 3L17 17M17 3L3 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <nav class="mobile-menu-nav">
+        <ul id="mobile-links" role="list">
+          <li style="--i:0"><a href="#gallery"        class="mobile-link">Gallery</a></li>
+          <li style="--i:1"><a href="#featured"       class="mobile-link">Featured</a></li>
+          <li style="--i:2"><a href="#beyond-borders" class="mobile-link mobile-link--bb">Beyond Borders</a></li>
+          <li style="--i:3"><a href="#about"          class="mobile-link">About</a></li>
+          <li style="--i:4"><a href="#contact"        class="mobile-link">Contact</a></li>
+        </ul>
+        <div class="mobile-menu-footer">
+          <button id="mobile-theme-toggle" class="mobile-theme-btn" aria-label="Toggle theme">
+            <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="mobile-theme-label">Dark Mode</span>
+          </button>
+          <p class="mobile-menu-brand">Art Life Foundation</p>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════════════════════ -->
+  <main id="main-content">
+
+    <!-- ── HERO ─────────────────────────────────────────── -->
+    <section id="hero" class="section" aria-label="Introduction">
+
+      <div id="hero-content">
+        <p class="eyebrow reveal-fade" data-delay="0">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Art Life Foundation — Collection 2025
+        </p>
+
+        <!-- JS splits this into individual words for the staggered animation -->
+        <h1 id="hero-title" class="split-text reveal-words">
+          Art that<br /><em>transcends</em><br />time
+        </h1>
+
+        <p id="hero-sub" class="reveal-fade" data-delay="0.4">
+          An exclusive curation of contemporary works<br class="d-only" />
+          for collectors who demand the extraordinary.
+        </p>
+
+        <div id="hero-ctas" class="reveal-fade" data-delay="0.6">
+          <a href="#gallery" class="btn-primary magnetic">
+            <span>Explore the Gallery</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 8H14M14 8L9 3M14 8L9 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <a href="#featured" class="btn-ghost magnetic"><span>View Featured</span></a>
+        </div>
+      </div>
+
+      <!-- Floating hero artwork (follows cursor via JS) -->
+      <figure id="hero-artwork" aria-hidden="true">
+        <div class="artwork-frame">
+          <img
+            src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800&q=90"
+            alt="Featured artwork — Art Life Foundation"
+            loading="eager"
+          />
+          <div class="artwork-frame-border"></div>
+        </div>
+        <figcaption class="artwork-caption">
+          <span class="caption-num">001</span>
+          <span class="caption-title">Luminescence in Red</span>
+        </figcaption>
+      </figure>
+
+      <div id="scroll-hint" aria-hidden="true">
+        <span class="scroll-hint-line"></span>
+        <span class="scroll-hint-text">Scroll</span>
+      </div>
+    </section>
+
+    <!-- ── MARQUEE / TICKER ─────────────────────────────── -->
+    <div id="marquee-section" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-inner">
+          <span>Original Artwork</span><span class="marquee-dot">✦</span>
+          <span>One of a Kind</span><span class="marquee-dot">✦</span>
+          <span>Limited Edition</span><span class="marquee-dot">✦</span>
+          <span>Certificate of Authenticity</span><span class="marquee-dot">✦</span>
+          <span>Art Life Foundation</span><span class="marquee-dot">✦</span>
+          <span>Secure Delivery</span><span class="marquee-dot">✦</span>
+          <span>Original Artwork</span><span class="marquee-dot">✦</span>
+          <span>One of a Kind</span><span class="marquee-dot">✦</span>
+          <span>Limited Edition</span><span class="marquee-dot">✦</span>
+          <span>Certificate of Authenticity</span><span class="marquee-dot">✦</span>
+          <span>Art Life Foundation</span><span class="marquee-dot">✦</span>
+          <span>Secure Delivery</span><span class="marquee-dot">✦</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GALLERY ───────────────────────────────────────
+         Empty grid — JS renders cards dynamically from
+         localStorage data (key: alf_gallery_data).
+    ────────────────────────────────────────────────────── -->
+    <section id="gallery" class="section" aria-label="Art Gallery">
+      <header class="section-header">
+        <div>
+          <p class="eyebrow reveal-fade">Current Collection</p>
+          <h2 class="section-title split-text reveal-words">Our Gallery</h2>
+        </div>
+        <div id="gallery-filters" role="group" aria-label="Filter by category">
+          <button class="filter-btn active magnetic" data-filter="all">All</button>
+          <button class="filter-btn magnetic" data-filter="painting">Painting</button>
+          <button class="filter-btn magnetic" data-filter="sculpture">Sculpture</button>
+          <button class="filter-btn magnetic" data-filter="photography">Photography</button>
+          <button class="filter-btn magnetic" data-filter="digital">Digital</button>
+        </div>
+      </header>
+
+      <!-- Cards injected here by JS -->
+      <div id="art-grid" role="list" aria-label="Artworks">
+        <div id="gallery-empty" class="gallery-empty" aria-live="polite">
+          <p>Loading works...</p>
+        </div>
+      </div>
+
+      <div id="gallery-more" class="text-center reveal-fade" style="display:none">
+        <button id="load-more-btn" class="btn-outline-gold magnetic">
+          <span>Load More</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── FEATURED SPOTLIGHT ───────────────────────────── -->
+    <section id="featured" class="section" aria-label="Featured Artwork">
+      <div id="featured-inner">
+
+        <div id="featured-text">
+          <p class="eyebrow reveal-fade">Work of the Week</p>
+          <h2 class="split-text reveal-words" id="featured-title">Selected Piece</h2>
+          <p id="featured-desc" class="reveal-fade" data-delay="0.2">
+            Discovered by our curators, this work represents the pinnacle of contemporary
+            expression — a piece that transforms any environment into a sensory experience.
+          </p>
+          <div class="featured-meta reveal-fade" data-delay="0.3">
+            <div class="meta-item">
+              <span class="meta-label">Artist</span>
+              <span class="meta-value" id="featured-artist">—</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Medium</span>
+              <span class="meta-value" id="featured-technique">—</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Dimensions</span>
+              <span class="meta-value" id="featured-dimensions">—</span>
+            </div>
+          </div>
+          <button class="btn-primary magnetic reveal-fade" data-delay="0.4" id="featured-cta">
+            <span>View Details</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 8H14M14 8L9 3M14 8L9 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <figure id="featured-image-container" class="reveal-scale">
+          <div class="featured-frame">
+            <img
+              id="featured-img"
+              src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=900&q=90"
+              alt="Featured artwork"
+              loading="lazy"
+            />
+            <div class="featured-overlay">
+              <span class="featured-badge">Featured — ALF</span>
+            </div>
+          </div>
+        </figure>
+
+      </div>
+    </section>
+
+    <!-- ── ABOUT / PHILOSOPHY ───────────────────────────── -->
+    <section id="about" class="section" aria-label="About Art Life Foundation">
+      <div id="about-inner">
+
+        <div id="about-statement">
+          <h2 class="split-text reveal-words about-quote">
+            "Every work is a universe waiting to be discovered"
+          </h2>
+        </div>
+
+        <div id="about-columns">
+          <div class="about-col reveal-fade" data-delay="0">
+            <h3>Our Philosophy</h3>
+            <p>Art Life Foundation believes that true art is what unsettles, inspires, and endures. We select only works that pass the rigorous scrutiny of our specialist curators.</p>
+          </div>
+          <div class="about-col reveal-fade" data-delay="0.15">
+            <h3>Guaranteed Authenticity</h3>
+            <p>Every work acquired through ALF comes with a certificate of authenticity, complete documentation, and a verified provenance record.</p>
+          </div>
+          <div class="about-col reveal-fade" data-delay="0.3">
+            <h3>Global Curation</h3>
+            <p>Our team travels the world in search of emerging talent and established names, assembling a portfolio that bridges cultures and artistic expressions.</p>
+          </div>
+        </div>
+
+        <!-- Animated statistics — JS increments from 0 to target -->
+        <div id="about-stats" class="reveal-fade" data-delay="0.1">
+          <div class="stat-item">
+            <span class="stat-number" data-target="350">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Works Sold</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="48">0</span><span class="stat-suffix"></span>
+            <span class="stat-label">Artists Represented</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="12">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Years of Experience</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="98">0</span><span class="stat-suffix">%</span>
+            <span class="stat-label">Client Satisfaction</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         ART BEYOND BORDERS — Community Collection
+         Scrollytelling parallax section.
+         Cards rendered by BeyondBorders module in script.js.
+    ════════════════════════════════════════════════════════ -->
+    <section id="beyond-borders" class="section" aria-label="Art Beyond Borders — Community Collection">
+
+      <!-- Parallax cinematic layers (shifted via JS scroll offset) -->
+      <div id="bb-parallax" aria-hidden="true">
+        <div class="bb-layer bb-layer--1"></div>
+        <div class="bb-layer bb-layer--2"></div>
+        <div class="bb-layer bb-layer--3"></div>
+        <div class="bb-overlay"></div>
+      </div>
+
+      <div id="bb-inner">
+
+        <!-- Section intro header -->
+        <header class="bb-header">
+          <div class="bb-eyebrow-row reveal-fade">
+            <span class="bb-badge">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M6 3v3l2 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+              Community Initiative
+            </span>
+            <span class="bb-philanthropy-badge">
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M7 12s-5.5-3.5-5.5-7A3.5 3.5 0 0 1 7 2.5 3.5 3.5 0 0 1 12.5 5c0 3.5-5.5 7-5.5 7z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+              </svg>
+              20% Donated to Christian Missions
+            </span>
+          </div>
+
+          <h2 class="section-title split-text reveal-words bb-title">
+            Art Beyond<br /><em>Borders</em>
+          </h2>
+
+          <p class="bb-subtitle reveal-fade" data-delay="0.2">
+            A curated collection created to bridge the world of fine art with the global community.
+            Each canvas carries the soul of an artist — and the purpose of a mission.
+          </p>
+
+          <div class="bb-mission-card reveal-fade" data-delay="0.35">
+            <div class="bb-mission-icon" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="13" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M6 16a10 10 0 0 1 20 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M16 6v20M6 16h20" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.35"/>
+              </svg>
+            </div>
+            <div class="bb-mission-text">
+              <strong>Our Humanitarian Commitment</strong>
+              <p>This collection makes original canvas works accessible to a wider audience. A full <mark class="bb-highlight">20% of every purchase</mark> is channelled directly to Christian missions delivering humanitarian aid in impoverished and high-need regions across the globe — from sub-Saharan Africa to Southeast Asia.</p>
+            </div>
+          </div>
+        </header>
+
+        <!-- Artwork grid — populated by JS -->
+        <div id="bb-grid" role="list" aria-label="Art Beyond Borders collection">
+          <div class="bb-loading" id="bb-loading" aria-live="polite">
+            <div class="bb-loading-dots"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+
+        <!-- Animated impact statistics strip -->
+        <div class="bb-impact-strip reveal-fade" data-delay="0.1">
+          <div class="bb-impact-item">
+            <div class="bb-impact-num-wrap">
+              <span class="bb-impact-num" data-bb-target="10">0</span>
+            </div>
+            <span class="bb-impact-label">Artworks Available</span>
+          </div>
+          <div class="bb-impact-divider" aria-hidden="true"></div>
+          <div class="bb-impact-item">
+            <div class="bb-impact-num-wrap">
+              <span class="bb-impact-num" data-bb-target="20">0</span><span class="bb-impact-suffix">%</span>
+            </div>
+            <span class="bb-impact-label">To Humanitarian Aid</span>
+          </div>
+          <div class="bb-impact-divider" aria-hidden="true"></div>
+          <div class="bb-impact-item">
+            <div class="bb-impact-num-wrap">
+              <span class="bb-impact-num" data-bb-target="14">0</span>
+            </div>
+            <span class="bb-impact-label">Countries Reached</span>
+          </div>
+          <div class="bb-impact-divider" aria-hidden="true"></div>
+          <div class="bb-impact-item">
+            <div class="bb-impact-num-wrap">
+              <span class="bb-impact-num" data-bb-target="100">0</span><span class="bb-impact-suffix">%</span>
+            </div>
+            <span class="bb-impact-label">Original Canvas Works</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── CONTACT ──────────────────────────────────────── -->
+    <section id="contact" class="section" aria-label="Contact">
+      <div id="contact-inner">
+
+        <div id="contact-text">
+          <p class="eyebrow reveal-fade">Get in Touch</p>
+          <h2 class="split-text reveal-words">
+            Let's talk<br /><em>about art</em>
+          </h2>
+          <p class="reveal-fade" data-delay="0.2">
+            For acquisition inquiries, artwork valuations, or institutional partnerships,
+            our team is available and ready to assist.
+          </p>
+          <address id="contact-details" class="reveal-fade" data-delay="0.3">
+            <a href="/cdn-cgi/l/email-protection#caa9a5a4beaba9be8aabb8bea6a3acafaca5bfa4aeabbea3a5a4e4abb8be" class="contact-link magnetic">
+              <span class="__cf_email__" data-cfemail="c4a7abaab0a5a7b084a5b6b0a8ada2a1a2abb1aaa0a5b0adabaaeaa5b6b0">[email&#160;protected]</span>
+            </a>
+            <a href="tel:+12125550100" class="contact-link magnetic">+1 (212) 555-0100</a>
+          </address>
+        </div>
+
+        <form id="contact-form" class="reveal-fade" data-delay="0.1" novalidate aria-label="Contact form">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="field-name">Name</label>
+              <input type="text" id="field-name" name="name" autocomplete="name" required placeholder="Your full name" />
+            </div>
+            <div class="form-field">
+              <label for="field-email">Email</label>
+              <input type="email" id="field-email" name="email" autocomplete="email" required placeholder="you@example.com" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="field-subject">Subject</label>
+            <input type="text" id="field-subject" name="subject" placeholder="Acquisition inquiry, valuation request..." />
+          </div>
+          <div class="form-field">
+            <label for="field-message">Message</label>
+            <textarea id="field-message" name="message" rows="4" required placeholder="Describe your interest or inquiry..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary magnetic">
+            <span>Send Message</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M2 8H14M14 8L9 3M14 8L9 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+          <p class="form-feedback" role="status" aria-live="polite"></p>
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════════════ -->
+  <footer id="site-footer" role="contentinfo">
+    <div id="footer-top">
+      <p class="footer-cta-label">Your next masterpiece is waiting.</p>
+      <a href="#gallery" class="footer-cta-link split-text reveal-words magnetic">
+        Explore the Collection
+      </a>
+    </div>
+    <div id="footer-bottom">
+      <p class="footer-copyright">© 2025 Art Life Foundation. All rights reserved.</p>
+      <ul class="footer-links" role="list">
+        <li><a href="#" class="magnetic">Privacy Policy</a></li>
+        <li><a href="#" class="magnetic">Terms of Use</a></li>
+        <li><a href="#" class="magnetic">Instagram</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════════
+       MODAL — ARTWORK DETAILS
+       Opens when an art card is clicked.
+  ════════════════════════════════════════════════════════ -->
+  <div id="product-modal" role="dialog" aria-modal="true" aria-label="Artwork details" hidden>
+    <div id="product-modal-overlay"></div>
+    <article id="product-modal-inner">
+
+      <button id="product-modal-close" class="modal-close magnetic" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M3 3L17 17M17 3L3 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <div id="product-modal-gallery">
+        <figure id="product-modal-figure">
+          <img id="product-modal-img" src="" alt="" loading="lazy" />
+        </figure>
+      </div>
+
+      <div id="product-modal-details">
+        <header id="product-modal-header">
+          <p class="eyebrow" id="product-modal-category">Category</p>
+          <h2 id="product-modal-title">Artwork Title</h2>
+          <p id="product-modal-artist" class="modal-artist">Artist</p>
+        </header>
+        <p id="product-modal-desc" class="modal-desc">Artwork description...</p>
+        <div id="product-modal-meta">
+          <div class="modal-meta-item">
+            <span class="meta-label">Price</span>
+            <span class="meta-value" id="product-modal-price">—</span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="meta-label">Status</span>
+            <span class="meta-value status-badge" id="product-modal-status">—</span>
+          </div>
+        </div>
+        <div id="product-modal-actions">
+          <button class="btn-primary magnetic" id="product-modal-inquire">
+            <span>Make an Inquiry</span>
+          </button>
+          <button class="btn-ghost magnetic" id="product-modal-favorite" aria-label="Save to favorites">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+              <path d="M9 15s-6-4.5-6-8.5C3 4 5 2.5 6.5 2.5c1.5 0 2.5 1 2.5 1s1-1 2.5-1C13 2.5 15 4 15 6.5c0 4-6 8.5-6 8.5z" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </article>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       MODAL — DIRECT BUY (Art Beyond Borders)
+       Triggered by "Purchase Now" buttons on BB cards.
+       Simulates a streamlined checkout funnel.
+  ════════════════════════════════════════════════════════ -->
+  <div id="direct-buy-modal" role="dialog" aria-modal="true" aria-label="Direct purchase" hidden>
+    <div id="direct-buy-overlay"></div>
+    <article id="direct-buy-inner">
+
+      <button id="direct-buy-close" class="modal-close magnetic" aria-label="Close checkout">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M3 3L17 17M17 3L3 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <!-- Step 1: Checkout form -->
+      <div id="direct-buy-form-step">
+        <div id="direct-buy-artwork-preview">
+          <figure>
+            <img id="direct-buy-img" src="" alt="" loading="lazy" />
+          </figure>
+          <div id="direct-buy-artwork-info">
+            <p class="eyebrow" id="direct-buy-collection">Art Beyond Borders</p>
+            <h3 id="direct-buy-title">Artwork Title</h3>
+            <p id="direct-buy-artist" class="modal-artist">Artist Name</p>
+            <div class="direct-buy-price-row">
+              <span id="direct-buy-price" class="direct-buy-price">—</span>
+              <span class="direct-buy-donation-note">
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M7 12s-5.5-3.5-5.5-7A3.5 3.5 0 0 1 7 2.5 3.5 3.5 0 0 1 12.5 5c0 3.5-5.5 7-5.5 7z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+                </svg>
+                20% donated to humanitarian aid
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <form id="direct-buy-form" novalidate aria-label="Purchase form">
+          <p class="eyebrow" style="margin-bottom:1.25rem">Your Details</p>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="buy-name">Full Name <span aria-hidden="true">*</span></label>
+              <input type="text" id="buy-name" name="name" autocomplete="name" required placeholder="Your full name" />
+            </div>
+            <div class="form-field">
+              <label for="buy-email">Email <span aria-hidden="true">*</span></label>
+              <input type="email" id="buy-email" name="email" autocomplete="email" required placeholder="you@example.com" />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="buy-address">Shipping Address <span aria-hidden="true">*</span></label>
+            <input type="text" id="buy-address" name="address" autocomplete="street-address" required placeholder="Street address, City, Country" />
+          </div>
+
+          <div class="form-field">
+            <label for="buy-notes">Special Instructions</label>
+            <textarea id="buy-notes" name="notes" rows="2" placeholder="Framing preferences, delivery notes..."></textarea>
+          </div>
+
+          <div class="direct-buy-terms">
+            <label class="checkbox-label">
+              <input type="checkbox" id="buy-terms" required />
+              <span class="checkbox-custom" aria-hidden="true"></span>
+              I understand that 20% of this purchase supports Christian humanitarian missions globally.
+            </label>
+          </div>
+
+          <p class="form-feedback" id="direct-buy-feedback" role="alert" aria-live="polite"></p>
+
+          <div class="direct-buy-actions">
+            <button type="submit" class="btn-primary btn-buy-submit magnetic" id="direct-buy-submit">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M13 4L6.5 11 3 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Complete Purchase</span>
+            </button>
+            <p class="direct-buy-secure">
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <rect x="2" y="6" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M4.5 6V4.5a2.5 2.5 0 0 1 5 0V6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+              Secure &amp; encrypted checkout simulation
+            </p>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 2: Order confirmed state -->
+      <div id="direct-buy-confirm-step" hidden>
+        <div class="direct-buy-confirm">
+          <div class="confirm-icon" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M14 24l7 7 13-14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Order Confirmed!</h3>
+          <p class="confirm-subtitle">Thank you, <strong id="confirm-buyer-name"></strong>.</p>
+          <p class="confirm-body">
+            Your acquisition of <em id="confirm-artwork-title"></em> has been registered.
+            Our team will contact you at <strong id="confirm-buyer-email"></strong> within 24 hours
+            to finalise shipping and delivery details.
+          </p>
+          <div class="confirm-donation-note">
+            <svg width="18" height="18" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M7 12s-5.5-3.5-5.5-7A3.5 3.5 0 0 1 7 2.5 3.5 3.5 0 0 1 12.5 5c0 3.5-5.5 7-5.5 7z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+            </svg>
+            <p>A portion of your purchase has been allocated to Christian humanitarian missions. Your generosity creates real change.</p>
+          </div>
+          <button class="btn-primary magnetic" id="direct-buy-done">
+            <span>Back to Collection</span>
+          </button>
+        </div>
+      </div>
+
+    </article>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       MODAL — ADMIN LOGIN
+       Credentials: ALFADM / ALFADMPROJECT
+  ════════════════════════════════════════════════════════ -->
+  <div id="admin-modal" role="dialog" aria-modal="true" aria-label="Admin login" hidden>
+    <div id="admin-modal-overlay"></div>
+    <div id="admin-modal-inner">
+
+      <button id="admin-modal-close" class="modal-close magnetic" aria-label="Close login">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M3 3L17 17M17 3L3 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <header class="admin-modal-header">
+        <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span>Restricted Area</p>
+        <h2>Art Life Foundation</h2>
+        <p class="admin-modal-sub">Admin Panel</p>
+      </header>
+
+      <form id="login-form" novalidate aria-label="Admin login form">
+
+        <div class="form-field">
+          <label for="admin-user">Username</label>
+          <input type="text" id="admin-user" name="user" autocomplete="username" required placeholder="Username" />
+        </div>
+
+        <!-- ── PASSWORD FIELD WITH EYE ICON ─────────────
+             The #toggle-password button switches
+             type="password" ↔ type="text" via JS and
+             swaps the two SVG icons accordingly.
+        ─────────────────────────────────────────────── -->
+        <div class="form-field">
+          <label for="admin-pass">Password</label>
+          <div class="password-field-wrapper">
+            <input
+              type="password"
+              id="admin-pass"
+              name="pass"
+              autocomplete="current-password"
+              required
+              placeholder="••••••••••••"
+            />
+            <button
+              type="button"
+              id="toggle-password"
+              class="eye-toggle"
+              aria-label="Show password"
+              aria-pressed="false"
+            >
+              <!-- Eye open: password is hidden -->
+              <svg class="eye-icon eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              <!-- Eye closed: password is visible -->
+              <svg class="eye-icon eye-closed" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="display:none">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <p class="login-error" role="alert" aria-live="polite"></p>
+
+        <button type="submit" class="btn-primary magnetic" style="width:100%">
+          <span>Sign In</span>
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ADMIN DASHBOARD PANEL
+       Accessible only after successful login.
+       Slides in from the right edge of the screen.
+       localStorage key: "alf_gallery_data"
+  ════════════════════════════════════════════════════════ -->
+  <div id="admin-panel" role="dialog" aria-modal="true" aria-label="Admin panel" hidden>
+    <div id="admin-panel-overlay"></div>
+    <div id="admin-panel-inner">
+
+      <header id="admin-panel-header">
+        <div>
+          <p class="eyebrow">Art Life Foundation</p>
+          <h2>Admin Dashboard</h2>
+        </div>
+        <button id="admin-logout" class="btn-outline magnetic" aria-label="Sign out of the admin panel">
+          <span>Sign Out</span>
+        </button>
+      </header>
+
+      <!-- Panel navigation tabs -->
+      <div id="admin-tabs" role="tablist" aria-label="Panel sections">
+        <button class="admin-tab active" role="tab" aria-selected="true"  data-tab="add">＋ Add</button>
+        <button class="admin-tab"        role="tab" aria-selected="false" data-tab="manage">
+          Manage <span id="admin-count-badge" class="tab-badge">0</span>
+        </button>
+        <button class="admin-tab"        role="tab" aria-selected="false" data-tab="featured">★ Featured</button>
+        <button class="admin-tab"        role="tab" aria-selected="false" data-tab="beyond">
+          ◆ Beyond <span id="admin-bb-badge" class="tab-badge">0</span>
+        </button>
+      </div>
+
+      <!-- ── Tab: Add / Edit Artwork ─────────────────── -->
+      <div id="tab-add" class="admin-tab-content active" role="tabpanel" aria-label="Add a new artwork">
+        <form id="artwork-form" novalidate aria-label="Artwork form">
+          <!-- Hidden ID field for edit mode (empty when creating a new work) -->
+          <input type="hidden" id="edit-id" name="id" />
+
+          <div class="admin-form-grid">
+
+            <!-- Image: file upload OR external URL -->
+            <div class="form-field form-field-full">
+              <label>Artwork Image</label>
+              <div id="upload-dropzone" role="button" tabindex="0" aria-label="Click or drag an image to upload">
+                <div id="upload-placeholder">
+                  <svg width="36" height="36" viewBox="0 0 40 40" fill="none">
+                    <rect x="1" y="1" width="38" height="38" rx="3" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 2"/>
+                    <path d="M20 13V27M13 20H27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                  <p>Click or drag an image here</p>
+                  <span>JPG, PNG, WEBP — Max. 5 MB</span>
+                </div>
+                <img id="upload-preview" src="" alt="Preview" hidden />
+              </div>
+              <input type="file" id="image-input" accept="image/*" aria-label="Select image file" />
+              <div class="image-source-divider"><span>or enter an image URL</span></div>
+              <input type="url" id="art-image-url" name="imageUrl" placeholder="https://example.com/image.jpg" aria-label="External image URL" />
+            </div>
+
+            <div class="form-field">
+              <label for="art-title">Title <span aria-hidden="true">*</span></label>
+              <input type="text" id="art-title" name="title" required placeholder="e.g. Luminescence in Blue" />
+            </div>
+
+            <div class="form-field">
+              <label for="art-artist">Artist <span aria-hidden="true">*</span></label>
+              <input type="text" id="art-artist" name="artist" required placeholder="e.g. Maria Santos" />
+            </div>
+
+            <div class="form-field">
+              <label for="art-price">Price (USD) <span aria-hidden="true">*</span></label>
+              <input type="text" id="art-price" name="price" required placeholder="e.g. 12,500" />
+            </div>
+
+            <div class="form-field">
+              <label for="art-category">Category <span aria-hidden="true">*</span></label>
+              <select id="art-category" name="category" required>
+                <option value="" disabled selected>Select...</option>
+                <option value="painting">Painting</option>
+                <option value="sculpture">Sculpture</option>
+                <option value="photography">Photography</option>
+                <option value="digital">Digital Art</option>
+                <option value="mixed">Mixed Media</option>
+                <option value="printmaking">Printmaking</option>
+              </select>
+            </div>
+
+            <!-- Availability status dropdown -->
+            <div class="form-field">
+              <label for="art-status">Availability Status</label>
+              <select id="art-status" name="status">
+                <option value="available">✅ Available</option>
+                <option value="reserved">🟡 Reserved</option>
+                <option value="sold">🔴 Sold</option>
+                <option value="unavailable">⚫ Unavailable</option>
+                <option value="promotion">🔵 On Promotion</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="art-year">Year</label>
+              <input type="number" id="art-year" name="year" placeholder="e.g. 2024" min="1800" max="2099" />
+            </div>
+
+            <div class="form-field">
+              <label for="art-dimensions">Dimensions</label>
+              <input type="text" id="art-dimensions" name="dimensions" placeholder="e.g. 47 × 35 in" />
+            </div>
+
+            <div class="form-field form-field-full">
+              <label for="art-desc">Description</label>
+              <textarea id="art-desc" name="description" rows="3" placeholder="Medium, artistic context, materials used..."></textarea>
+            </div>
+
+            <div class="form-field form-field-full form-field-check">
+              <label class="checkbox-label">
+                <input type="checkbox" id="art-featured" name="featured" />
+                <span class="checkbox-custom" aria-hidden="true"></span>
+                Mark as the featured work on the main page
+              </label>
+            </div>
+
+          </div><!-- /.admin-form-grid -->
+
+          <div class="admin-form-actions">
+            <button type="submit" class="btn-primary magnetic" id="artwork-submit">
+              <span>Publish Artwork</span>
+            </button>
+            <button type="button" class="btn-outline magnetic" id="artwork-cancel" hidden>
+              Cancel Editing
+            </button>
+          </div>
+
+          <p class="form-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </div><!-- /#tab-add -->
+
+      <!-- ── Tab: Manage Existing Artworks ──────────── -->
+      <div id="tab-manage" class="admin-tab-content" role="tabpanel" aria-label="Manage existing artworks" hidden>
+        <div id="admin-art-list" role="list" aria-label="Registered artworks">
+          <!-- JS injects .admin-art-item elements here -->
+          <p class="admin-empty" id="manage-empty">No artworks have been added yet.</p>
+        </div>
+   
+      </div><!-- /#tab-manage -->
+
+      <!-- ── Tab: Featured — Hero & Work of the Week ─── -->
+      <div id="tab-featured" class="admin-tab-content" role="tabpanel" aria-label="Manage featured artworks" hidden>
+
+        <!-- Hero Artwork -->
+        <p class="admin-section-title">Hero Artwork (Homepage Banner)</p>
+        <div class="admin-featured-preview" id="hero-preview-card">
+          <img id="hero-preview-img" src="" alt="" />
+          <div class="admin-featured-preview-info">
+            <span class="admin-preview-tag">Hero</span>
+            <strong id="hero-preview-title">No artwork selected</strong>
+            <span id="hero-preview-artist">—</span>
+          </div>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--text-3);margin-bottom:0.75rem">
+          Select an artwork from your gallery to display as the full-page hero on load:
+        </p>
+        <div class="admin-select-list" id="hero-select-list" role="listbox" aria-label="Select hero artwork">
+          <!-- JS injects .admin-select-item elements -->
+        </div>
+
+        <!-- Work of the Week -->
+        <p class="admin-section-title" style="margin-top:2rem">Work of the Week (Featured Section)</p>
+        <div class="admin-featured-preview" id="wotw-preview-card">
+          <img id="wotw-preview-img" src="" alt="" />
+          <div class="admin-featured-preview-info">
+            <span class="admin-preview-tag">Work of the Week</span>
+            <strong id="wotw-preview-title">No artwork selected</strong>
+            <span id="wotw-preview-artist">—</span>
+          </div>
+        </div>
+        <p style="font-size:var(--text-xs);color:var(--text-3);margin-bottom:0.75rem">
+          Select an artwork to spotlight in the "Work of the Week" section:
+        </p>
+        <div class="admin-select-list" id="wotw-select-list" role="listbox" aria-label="Select work of the week">
+          <!-- JS injects .admin-select-item elements -->
+        </div>
+
+        <p class="form-feedback" id="featured-tab-feedback" role="status" aria-live="polite" style="margin-top:1rem"></p>
+      </div><!-- /#tab-featured -->
+
+      <!-- ── Tab: Beyond Borders Collection ──────────── -->
+      <div id="tab-beyond" class="admin-tab-content" role="tabpanel" aria-label="Manage Beyond Borders collection" hidden>
+
+        <!-- Sub-tabs: Add / Manage -->
+        <div style="display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:1.25rem">
+          <button class="admin-tab active" role="tab" aria-selected="true"  data-bbtab="bb-add"    style="font-size:10px;padding:0.6rem 1rem">＋ Add Work</button>
+          <button class="admin-tab"        role="tab" aria-selected="false" data-bbtab="bb-manage" style="font-size:10px;padding:0.6rem 1rem">
+            Manage <span id="bb-manage-badge" class="tab-badge">0</span>
+          </button>
+        </div>
+
+        <!-- BB Add/Edit form -->
+        <div id="tab-bb-add" class="bb-subtab-content active">
+          <form id="bb-artwork-form" novalidate aria-label="Beyond Borders artwork form">
+            <input type="hidden" id="bb-edit-id" />
+
+            <div class="admin-form-grid">
+
+              <div class="form-field form-field-full">
+                <label>Artwork Image</label>
+                <div id="bb-upload-dropzone" role="button" tabindex="0" aria-label="Click or drag an image to upload">
+                  <div id="bb-upload-placeholder">
+                    <svg width="30" height="30" viewBox="0 0 40 40" fill="none">
+                      <rect x="1" y="1" width="38" height="38" rx="3" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 2"/>
+                      <path d="M20 13V27M13 20H27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <p>Click or drag an image here</p>
+                    <span>JPG, PNG, WEBP — Max. 5 MB</span>
+                  </div>
+                  <img id="bb-upload-preview" src="" alt="Preview" hidden />
+                </div>
+                <input type="file" id="bb-image-input" accept="image/*" aria-label="Select image file" />
+                <div class="image-source-divider"><span>or enter an image URL</span></div>
+                <input type="url" id="bb-art-image-url" placeholder="https://example.com/image.jpg" aria-label="External image URL" />
+              </div>
+
+              <div class="form-field">
+                <label for="bb-art-title">Title <span aria-hidden="true">*</span></label>
+                <input type="text" id="bb-art-title" required placeholder="e.g. Roots of Hope" />
+              </div>
+
+              <div class="form-field">
+                <label for="bb-art-artist">Artist <span aria-hidden="true">*</span></label>
+                <input type="text" id="bb-art-artist" required placeholder="e.g. Emmanuel Osei" />
+              </div>
+
+              <div class="form-field">
+                <label for="bb-art-price">Price USD <span aria-hidden="true">*</span></label>
+                <input type="text" id="bb-art-price" required placeholder="e.g. 2,100" />
+              </div>
+
+              <div class="form-field">
+                <label for="bb-art-year">Year</label>
+                <input type="number" id="bb-art-year" placeholder="e.g. 2024" min="1800" max="2099" />
+              </div>
+
+              <div class="form-field">
+                <label for="bb-art-dimensions">Dimensions</label>
+                <input type="text" id="bb-art-dimensions" placeholder="e.g. 30 × 40 in" />
+              </div>
+
+              <div class="form-field">
+                <label for="bb-art-status">Status</label>
+                <select id="bb-art-status">
+                  <option value="available">✅ Available</option>
+                  <option value="reserved">🟡 Reserved</option>
+                  <option value="sold">🔴 Sold</option>
+                </select>
+              </div>
+
+              <div class="form-field form-field-full">
+                <label for="bb-art-desc">Description</label>
+                <textarea id="bb-art-desc" rows="3" placeholder="Artistic context, medium, intention..."></textarea>
+              </div>
+
+            </div><!-- /.admin-form-grid -->
+
+            <div class="admin-form-actions">
+              <button type="submit" class="btn-primary magnetic" id="bb-artwork-submit">
+                <span>Publish to Beyond Borders</span>
+              </button>
+              <button type="button" class="btn-outline magnetic" id="bb-artwork-cancel" hidden>
+                Cancel Editing
+              </button>
+            </div>
+            <p class="form-feedback" id="bb-form-feedback" role="status" aria-live="polite"></p>
+          </form>
+        </div><!-- /#tab-bb-add -->
+
+        <!-- BB Manage list -->
+        <div id="tab-bb-manage" class="bb-subtab-content" hidden>
+          <div class="admin-bb-grid" id="admin-bb-list" role="list" aria-label="Beyond Borders artworks">
+            <p class="admin-empty" id="bb-manage-empty">No artworks added yet.</p>
+          </div>
+        </div><!-- /#tab-bb-manage -->
+
+      </div><!-- /#tab-beyond -->
+
+    </div><!-- /#admin-panel-inner -->
+  </div><!-- /#admin-panel -->
+
+  <!-- Main JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+</html>
